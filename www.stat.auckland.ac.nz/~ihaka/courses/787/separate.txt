@@ -1,0 +1,84 @@
+###  Given a set of numbers "values" and a threshold "delta", this function
+###  constructs a new set of values so that the minimum distance between
+###  values is "delta".  The function proceeds by identifying clusters of
+###  "overlapping" values and spacing the values in the cluster to the
+###  specified spacing.  This process is repeated until there are no overlaps.
+###
+###  The function is intended to help space labels in plots so that there
+###  is no overlapping.
+###
+###  1. Sort the observations
+###  2. Put each observation in its own group
+###  3. Compute the group min and max
+###  4. Merge groups which are too close
+###  5. If there was a merger go to 3
+###
+###  n  : the number of observations
+###  y  : the sorted observations
+###  o  : the ordering permutation for the observations
+###  ng : the number of groups (currently)
+###  gi : group membership for each obs (the group index)
+###  gn : the group sizes
+###  ys : the shifted coordinates
+
+separate =
+    function(values, delta)
+    {
+	## --- We work with the sorted values, but we need ---
+	## --- the ordering permutation for unscrambling ---
+	## --- at the end. ---
+        n = length(values)
+        o = order(values)
+        y = sort(values)
+
+        ## --- Start with each observation in its own group. ---
+        ng = length(values)
+        gi = seq(1, n, by = 1)
+        gn = rep(1, n)
+        ys = y
+
+        while (TRUE) {
+            ## --- Record the old grouping. ---
+            giprev = gi
+
+            ## --- Recompute the group extremes. ---
+            gmin = tapply(ys, gi, min)
+            gmax = tapply(ys, gi, max)
+
+            ## --- Recompute the group index, merging groups ---
+	    ## --- which may have touched. ---
+	    ## --- Group i merges with group i+1 if ---
+            ## --- gmin[i+1] - gmax[i] < delta. ---
+	    ## --- The variable gmi gives a grouping for the ---
+	    ## --- the groups.  Here gmi has length ng and ---
+	    ## --- contains group identifiers.  If two groups ---
+	    ## --- have the same gmi value then they must be merged. ---
+            
+            i2 = 2:ng
+            i1 = i2 - 1
+            gmi = 1 + c(0, cumsum(gmin[i2] - gmax[i1] >= delta))
+
+            ## --- Recompute the size of the groups ---
+            gn = tapply(gn, gmi, sum)
+
+            ## --- Use the group sizes to recompute the group indicator ---
+            ng = length(gn)
+            gi = rep(1:ng, gn)
+
+            ## --- If there were no mergers, or everything ---
+            ## --- has been merged into one group, we are done ---
+            if (all(giprev == gi) || ng == 1) break
+
+            ## --- Recompute the positions ---
+	    ## --- The points in a group are all a distance delta ---
+	    ## --- apart and centered on the group mean. ---
+            ## --- We compute the values 1:gn[i] - (1+gn[1])/2, ---
+	    ## --- for each group, multiply by delta and then ---
+	    ## --- add tthe group mean. ---
+            ys =  unlist(tapply(sequence(gn), gi, function(x) x - mean(x)),
+              use.names = FALSE) * delta +
+                  tapply(y, gi, function(x) mean(range(x)))[gi]        
+        }
+        values[o] = ys
+        values
+    }

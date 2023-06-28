@@ -1,0 +1,765 @@
+
+
+
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+
+
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The University of Auckland Login Service</title>
+<link rel="icon" href="/images/favicon.ico">
+<link rel="stylesheet" type="text/css" href="/css/sso.css?v=20211027">
+<script src="/js/svg4everybody.js?v=20220322"></script>
+<!--[if IE 9 ]><script src="/js/placeholders.min.js?v=20220322"></script><![endif]-->
+<script type="text/javascript">
+	// We can't use conditional comments, as IE 10 dropped support for them
+	// and any scripts with arrow functions will error out, even if not executed :(
+	if ('credentials' in navigator && !/MSIE|Trident/.test(window.navigator.userAgent)){
+		var script = document.createElement('script')
+		script.src ='/js/webauthn/webauthn.js?v=20220322'
+		document.querySelector('head')
+				.appendChild(script);
+	}
+</script>
+<script type="text/javascript" src="/js/jquery-3.6.0.min.js"></script>
+<script language="Javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-10521001-18']);
+    _gaq.push(['_trackPageview']);
+    (function () {
+        var ga = document.createElement('script');
+        ga.type = 'text/javascript';
+        ga.async = true;
+        ga.src =
+                ('https:' == document.location.protocol ? 'https://ssl' : 'http://www')
+                + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+<script language="Javascript">
+    <!--
+'use strict';
+
+// IE8 Polyfill
+window.addEventListener = window.addEventListener || function (e, f) { window.attachEvent('on' + e, f); };
+document.addEventListener = document.addEventListener || function (e, f) { document.attachEvent('on' + e, f); };
+
+function showRegisterPage() {
+    var columnEls = document.getElementsByClassName('col-register');
+    var registerEls = document.getElementsByClassName('register');
+    var loginEls = document.getElementsByClassName('login');
+    document.body.style.background = 'white';
+    var loginColumn = document.getElementById('col-login');
+    loginColumn.style.display = 'none';
+
+    if (document.title !== 'The University of Auckland Register Service') {
+        document.title = 'The University of Auckland Register Service';
+    }
+
+    for (var i = 0; i < columnEls.length; i++) {
+        columnEls.item(i).className = 'col-xs-12 col-md-6 col-register';
+    }
+
+    for (var j = 0; j < registerEls.length; j++) {
+        registerEls.item(j).style.display = 'block';
+    }
+
+    for (var k = 0; k < loginEls.length; k++) {
+        loginEls.item(k).style.display = 'none';
+    }
+}
+
+function showLoginPage() {
+    var columnEls = document.getElementsByClassName('col-register');
+    var registerEls = document.getElementsByClassName('register');
+    var loginEls = document.getElementsByClassName('login');
+    var loginColumn = document.getElementById('col-login');
+    document.body.style.background = '';
+
+    if (document.title !== 'The University of Auckland Login Service') {
+            document.title = 'The University of Auckland Login Service';
+        }
+
+    for (var i = 0; i < columnEls.length; i++) {
+        columnEls.item(i).className = 'col-xs-12 col-md-2 col-xl-3 col-register';
+    }
+
+    for (var j = 0; j < registerEls.length; j++) {
+        registerEls.item(j).style.display = 'none';
+    }
+
+    for (var k = 0; k < loginEls.length; k++) {
+        loginEls.item(k).style.display = 'block';
+    }
+    loginColumn.style.display = 'block';
+    loginColumn.className = 'col-xs-12 col-md-8 col-xl-6 col-register';
+}
+
+function togglePasswordVisibility() {
+    var password = document.getElementById('password');
+    if (password.getAttribute('type') === 'password') {
+        password.setAttribute('type', 'text');
+        document.getElementById('ic-visibility-off').style.display = 'block';
+        document.getElementById('ic-visibility').style.display = 'none';
+    } else {
+        password.setAttribute('type', 'password');
+        document.getElementById('ic-visibility-off').style.display = 'none';
+        document.getElementById('ic-visibility').style.display = 'block';
+    }
+}
+
+function addButtons() {
+    var passwordLink = document.getElementById('password-toggle');
+    var twoFactorLink = document.getElementById('two-factor-link');
+    var twoFactorClose = document.getElementById('two-factor-close');
+    var twoFactorModal = document.getElementById('two-factor-modal');
+    var socialButtons = document.getElementsByClassName('social-buttons');
+    var lostTokenLink = document.getElementById('lost-token-link');
+    var lostTokenClose = document.getElementById('lost-token-close');
+    var lostTokenModal = document.getElementById('lost-token-modal');
+
+    if (passwordLink) {
+        passwordLink.addEventListener('click', togglePasswordVisibility);
+    }
+
+    if (twoFactorLink) {
+        twoFactorLink.addEventListener('click', function () {
+            twoFactorModal.className = 'modal';
+            twoFactorModal.tabIndex = 0;
+            document.getElementById('two-factor-title').focus();
+        });
+    }
+
+    if (twoFactorClose) {
+        twoFactorClose.addEventListener('click', function () {
+            document.getElementById('two-factor-modal').className = 'modal display-none';
+            twoFactorModal.tabIndex = -1;
+        });
+    }
+
+    for (var i = 0; i < socialButtons.length; i++) {
+        socialButtons[i].addEventListener('click', function(event) {
+            var button = event.target.closest('.social-buttons');
+
+            if (button.classList) {
+                button.classList.add('login-loading');
+            }
+        });
+    }
+
+    if (lostTokenLink) {
+        lostTokenLink.addEventListener('click', function () {
+            lostTokenModal.className = 'modal';
+            lostTokenModal.tabIndex = 0;
+            document.getElementById('lost-token-title').focus();
+        });
+    }
+
+    if (lostTokenClose) {
+        lostTokenClose.addEventListener('click', function () {
+            document.getElementById('lost-token-modal').className = 'modal display-none';
+            twoFactorModal.tabIndex = -1;
+        });
+    }
+}
+
+function checkRememberMe() {
+    var cookies = decodeURIComponent(document.cookie).split(';');
+
+    for (var i = 0; i < cookies.length; i++) {
+        var checkbox = document.getElementById('rememberMe');
+        if (checkbox && cookies[i].indexOf('mfaRemember') > -1) {
+            if (cookies[i].indexOf('false') > -1) {
+                checkbox.checked = false;
+            } else if (cookies[i].indexOf('true') > -1) {
+                checkbox.checked = true;
+            }
+            break;
+        }
+    }
+}
+
+function toggleRememberMe() {
+    var checked = document.getElementById('rememberMe').checked;
+    document.cookie='mfaRemember=' + checked;
+}
+
+function setFocus() {
+    if (document.getElementById('username') !== null){
+        if (document.getElementById('username').value === '') {
+            document.getElementById('username').focus();
+        } else if (document.getElementById('token') !== null) {
+           document.getElementById('password').focus();
+        }
+    }else if (document.getElementById('token') !== null){
+        document.getElementById('token').focus();
+    }
+}
+
+function checkHash() {
+    if(window.location.hash && window.location.hash.substring(1) === 'register') {
+        showRegisterPage();
+    } else {
+        showLoginPage();
+    }
+}
+
+function trimToken() {
+    var token = document.getElementById('token');
+    if (token !== null) {
+        token.oninput = function() {
+            token.value = token.value.replace(/\s+/g, '');
+        }
+    }
+}
+
+window.addEventListener('hashchange', function() {
+    checkHash();
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    addButtons();
+    checkRememberMe();
+    trimToken();
+    checkHash();
+    svg4everybody();
+    setFocus();
+    retrieveRealmeError();
+});
+
+function submitLoginFrm(submitted) {
+    if (submitted === 1) {
+        document.getElementById('_eventId_proceed').click();
+    }
+}
+
+function gss_submit(jsondata) {
+    if (!jsondata.token || jsondata.token === 'gss:') {
+        return;
+    }
+    document.getElementById('username').value = jsondata.user;
+    document.getElementById('password').value = jsondata.token;
+    submitLoginFrm(1);
+}
+
+function callback(jsondata) {
+    try {
+        gss_submit(jsondata);
+    } catch (e) {
+    }
+}
+
+var ip2long = function(ip){
+    var components;
+
+    if(components = ip.match(/^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/))
+    {
+        var iplong = 0;
+        var power  = 1;
+        for(var i=4; i>=1; i-=1)
+        {
+            iplong += power * parseInt(components[i]);
+            power  *= 256;
+        }
+        return iplong;
+    }
+    else return -1;
+};
+
+var inSubNet = function(ip, subnet)
+{
+    var mask, base_ip, long_ip = ip2long(ip);
+    if( (mask = subnet.match(/^(.*?)\/(\d{1,2})$/)) && ((base_ip=ip2long(mask[1])) >= 0) )
+    {
+        var freedom = Math.pow(2, 32 - parseInt(mask[2]));
+        return (long_ip > base_ip) && (long_ip < base_ip + freedom - 1);
+    }
+    else return false;
+};
+
+var inUoaSubnets = function (ipAddress, uoaSubnets) {
+    var subnets = uoaSubnets.replace(' ','').split(',');
+    for (var i=0; i<subnets.length; i++) {
+        if (inSubNet(ipAddress, subnets[i])){
+            return true;
+        }
+    }
+    return false;
+};
+
+
+function gss_loadUser(encodedURL, ipAddress, uoaSubnets) {
+    if ((document.readyState === 'complete') && (document.getElementsByClassName(
+            'form-element form-error').length === 0) && inUoaSubnets(ipAddress,uoaSubnets)) {
+        if ((navigator.userAgent.search(/Trident/) > 0) || (navigator.userAgent.search(/MSIE/)
+                                                            > 0)) {
+            // ie
+            try {
+                var script_element = document.createElement('script');
+                var decodedURL = decodeURIComponent(encodedURL) + '&callback=callback';
+                script_element.src = decodedURL;
+                document.getElementsByTagName('body')[0].appendChild(script_element);
+            } catch (e) {
+            }
+        } else {
+            // !ie
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function () {
+                try {
+                    if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
+                        var jsondata = eval('(' + xmlhttp.responseText + ')');
+                        gss_submit(jsondata);
+                    }
+                } catch (e) {
+                }
+            };
+            try {
+                var decodedURL = decodeURIComponent(encodedURL);
+                xmlhttp.open('GET', decodedURL, true);
+                xmlhttp.send();
+            } catch (e) {
+            }
+        }
+    }
+}
+
+function retrieveRealmeError() {
+    if (document.getElementById('realMeForm') !== null){
+        var realmeForm = document.getElementById('realMeForm');
+        var error = realmeForm.realmeError.value;
+        if (error.trim().length > 0) {
+            showRegisterPage();
+        }
+    }
+}
+    // -->
+</script>
+
+
+</head>
+
+<!--[if IE 9 ]><body class="ie9" onLoad="submitLoginFrm(0);"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<body onLoad="submitLoginFrm(0);" id="register">
+<!--<![endif]-->
+
+
+
+
+<noscript>
+    <div class="notification notification-danger" role="status">
+    <div class="container" role="presentation">
+        <div class="row" role="presentation">
+            &#9888; Javascript is disabled. To allow full functionality of this site, please enable javascript.
+        </div>
+    </div>
+</div>
+</noscript>
+
+
+
+
+<header id="header" role="banner" class="main-header">
+    <div class="container" role="presentation">
+        <div class="row" role="presentation">
+            <div class="col-xs-12 col-lg-2">
+                <a href="https://www.auckland.ac.nz" class="logo" aria-label="University of Auckland Login Service">
+                    <svg class="icon icon-logo" focusable="false" aria-hidden="true">
+                    <title>University of Auckland Login Service</title>
+                        <use xlink:href="/images/sprite.svg?v=20220303#logo-big"></use>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="embed-section hidden-lg-up">
+        <div class="frontpage-banner">
+            <div class="frontpage-banner__img">
+                <img alt src="/images/mobile-banner.jpg?v=20220303"
+                     srcset="/images/mobile-lg.jpg?v=20220303 992w,
+                             /images/mobile-md.jpg?v=20220303 768w,
+                             /images/mobile-sm.jpg?v=20220303 576w" sizes="100vw" />
+            </div>
+        </div>
+    </div>
+</header>
+
+<div id="main-content" class="main-content general-content sticky-footer">
+    <main id="main">
+        <div class="section responsiveGrid">
+            <div class="uoa-section">
+                <div class="container">
+                    <div class="row register-section">
+                        <div class="col-xs-12 col-md-12 sectionheading register">
+                            <h2>Please choose from one of the following options</h2>
+                        </div>
+                    </div>
+
+                    <div class="row">
+<div id="col-new" class="col-xs-12 col-md-3 col-register">
+    <span class="register-title register">
+        I'm new and I would like to register using:
+    </span>
+    <fieldset class="register-field register divider">
+            <form action="https://iam.auckland.ac.nz/realme" id="realMeForm">
+                <input type="hidden" name="relyingParty" value="https://webroute.auckland.ac.nz/shibboleth/www.stat.auckland.ac.nz"/>
+                <input type="hidden" name="executionKey" value="e1s1"/>
+                <input type="hidden" name="realmeError" id="realmeError" value=" ">
+                <input type="hidden" name="provider"  value="RealMe"/>
+                <div class="register-button">
+                    <button type="submit" class="register-realme register-option-button">
+                        <svg role="img" class="register-social-icon">
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/images/icons.svg?v=20220303#social-realme"></use>
+                        </svg>
+                        <span>RealMe identity</span>
+                    </button>
+                </div>
+            </form>
+            <form action="https://iam.auckland.ac.nz/register" id="linkedInForm">
+                <input type="hidden" name="relyingParty" value="https://webroute.auckland.ac.nz/shibboleth/www.stat.auckland.ac.nz"/>
+                <input type="hidden" name="executionKey" value="e1s1"/>
+                <input type="hidden" name="provider" value="LinkedIn">
+                <div class="register-button">
+                    <button type="submit" class="register-linkedin register-option-button">
+                        <svg role="img" class="register-linkedin-logo register-social-icon">
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/images/icons.svg?v=20220303#social-linkedin"></use>
+                        </svg>
+                        <span>LinkedIn account</span>
+                    </button>
+                </div>
+            </form>
+            <form action="https://iam.auckland.ac.nz/register" id="googleForm">
+                <input type="hidden" name="relyingParty" value="https://webroute.auckland.ac.nz/shibboleth/www.stat.auckland.ac.nz"/>
+                <input type="hidden" name="executionKey" value="e1s1"/>
+                <input type="hidden" name="provider" value="Google">
+                <div class="register-button">
+                    <button type="submit" class="register-google register-option-button">
+                        <svg role="img" class="register-google-logo register-social-icon">
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/images/icons.svg?v=20220303#social-google"></use>
+                        </svg>
+                        <span>Google account</span>
+                    </button>
+                </div>
+            </form>
+            <form action="https://iam.auckland.ac.nz/register" id="facebookForm">
+                <input type="hidden" name="relyingParty" value="https://webroute.auckland.ac.nz/shibboleth/www.stat.auckland.ac.nz"/>
+                <input type="hidden" name="executionKey" value="e1s1"/>
+                <input type="hidden" name="provider" value="Facebook">
+                <div class="register-button">
+                    <button type="submit" class="register-facebook register-option-button">
+                        <svg role="img" class="register-facebook-logo register-social-icon">
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/images/icons.svg?v=20220303#social-facebook"></use>
+                        </svg>
+                        <span>Facebook account</span>
+                    </button>
+                </div>
+            </form>
+
+        <div class="row">
+            <span class="small clearfix">Registering with one of these services will
+                allow you to use that account to log in to your University account</span>
+        </div>
+
+        <hr>
+
+        <form action="https://iam.auckland.ac.nz/register" id="registerForm">
+            <input type="hidden" name="relyingParty" value="https://webroute.auckland.ac.nz/shibboleth/www.stat.auckland.ac.nz"/>
+            <input type="hidden" name="executionKey" value="e1s1"/>
+            <div class="register-button">
+                <button type="submit" class="register-manual register-option-button">
+                    <svg style="visibility: hidden;"></svg>
+                    <span>Register manually</span>
+                </button>
+            </div>
+        </form>
+        <a href="#" id="register-back">
+            I already have a username
+        </a>
+    </fieldset>
+</div>
+                        <div id="col-login" class="col-xs-12 col-md-6 col-register">
+                            <fieldset class="login-field">
+                                <h1 class="login login-title hidden-md-down">The University of Auckland</h1>
+
+                                <form action="/profile/SAML2/Redirect/SSO?execution=e1s1" method="post" id="loginFrm" class="uoa-form login-form">
+
+
+                                    <input type="hidden" name="submitted" value="" />
+
+                                    <div class="uoa-form__elt uoa-form__text">
+                                        <label for="username" class="login-label">Username or email address</label>
+                                        <input class="form-input" id="username" name="j_username"
+                                               type="text" autocapitalize="off" autocorrect="off" title="username-field"
+                                               placeholder="Email or University username"
+                                               value=""
+                                               aria-required="true" required aria-invalid="false" />
+                                    </div>
+
+                                    <div class="uoa-form__elt uoa-form__text">
+                                        <label for="password" class="login-label">Password</label>
+                                        <div class="password-visibility">
+                                            <input class="form-input" id="password" name="j_password" title="password-field"
+                                                   placeholder="Password"
+                                                   type="password" value=""
+                                                   aria-required="true" required aria-invalid="false" />
+                                            <label id="password-toggle" class="hidden-md-up" title="password-visibility">
+                                                <svg id="ic-visibility" role="presentation">
+                                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/images/icons.svg?v=20220303#ic_visibility"></use>
+                                                </svg>
+                                                <svg id="ic-visibility-off" style="display: none;" role="presentation">
+                                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/images/icons.svg?v=20220303#ic_visibility_off"></use>
+                                                </svg>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="uoa-form__login" aria-live="polite">
+                                        <button class="cta cta--dark-blue-round login-button" type="submit"
+                                                name="_eventId_proceed" id="_eventId_proceed"
+                                                onClick="if (document.forms['loginFrm']['username'].value &&
+                                                        document.forms['loginFrm']['password'].value) {
+                                                        this.childNodes[0].nodeValue='Signing in...' }">
+Sign in                                            <svg class="icon icn-arrow" role="presentation">
+                                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/images/sprite.svg?v=20220303#icn-arrow"></use>
+                                            </svg>
+                                        </button>
+                                    </div>
+
+                                    <div class="text-xs-center m-t-1">
+                                        <span class="login">
+                                            <a class="login-white" href="https://iam.auckland.ac.nz/password/reset">I've forgotten my password</a>
+                                        </span>
+                                    </div>
+                                </form>
+                            </fieldset>
+
+                            <div class="login text-xs-center m-t-2 m-b-1 row">
+                                <h4 class="login-white login-help m-b-1">Or sign in with one of the following services</h4>
+                                <div class="col-md-6 text-md-right p-r-0">
+                                    <form class="social-button" action="/profile/SAML2/Redirect/SSO?execution=e1s1" method="post">
+                                        <button type="submit" class="login-realme social-buttons" name="_eventId_SocialRealme" id="_eventId_SocialRealme"
+>
+                                            <svg>
+                                                <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                     xlink:href="/images/icons.svg?v=20220303#social-realme"></use>
+                                            </svg>
+                                            <span>RealMe</span>
+                                        </button>
+                                    </form>
+                                    <form class="social-button" action="/profile/SAML2/Redirect/SSO?execution=e1s1" method="post">
+                                        <button type="submit" class="login-linkedin social-buttons" name="_eventId_SocialLinkedIn" id="_eventId_SocialLinkedIn"
+>
+                                            <svg>
+                                                <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                     xlink:href="/images/icons.svg?v=20220303#social-linkedin"></use>
+                                            </svg>
+                                            <span>LinkedIn</span>
+                                        </button>
+                                    </form>
+                                </div>
+                                <div class="col-md-6 text-md-left p-l-0">
+                                <form class="social-button" action="/profile/SAML2/Redirect/SSO?execution=e1s1" method="post">
+                                    <button type="submit" class="login-facebook social-buttons" name="_eventId_SocialFacebook" id="_eventId_SocialFacebook"
+>
+                                        <svg>
+                                            <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                 xlink:href="/images/icons.svg?v=20220303#social-facebook"></use>
+                                        </svg>
+                                        <span>Facebook</span>
+                                    </button>
+                                </form>
+                                <form class="social-button" action="/profile/SAML2/Redirect/SSO?execution=e1s1" method="post">
+                                    <button type="submit" class="login-google social-buttons" name="_eventId_SocialGoogle" id="_eventId_SocialGoogle"
+>
+                                        <svg>
+                                            <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                 xlink:href="/images/icons.svg?v=20220303#social-google"></use>
+                                        </svg>
+                                        <span>Google</span>
+                                    </button>
+                                </form>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+
+                        <div id="col-help" class="col-xs-12 col-md-3 col-register">
+                            <span class="register-title register-title-push register">
+                                I'm not sure if I have a username or not already:
+                            </span>
+                            <fieldset class="register-field register">
+                                <p>If you've ever applied, studied or worked at the University of Auckland,
+                                    we can reset access to your account.</p>
+
+                                <p>Please contact us for assistance on
+                                    <strong class="text-nowrap">0800 61 62 63</strong></p>
+
+                                <p>From outside New Zealand
+                                    <strong class="text-nowrap">+64 9 373 7513</strong></p>
+
+                                <p>Email <a href="mailto:studentinfo@auckland.ac.nz">
+                                    studentinfo@auckland.ac.nz
+                                </a></p>
+
+                                <p>For more information about benefits of using Realme please click <a href="https://www.auckland.ac.nz/en/about-us/about-the-university/identity-and-access-management/create-account/realme-registration.html" target="_blank">here</a>.</p>
+                            </fieldset>
+                        </div>
+
+
+                    </div>
+
+
+<div class="row clear privacy-note login">
+    <div class="col-xs-12 col-md-12 sectionheading login-white">
+        <h2 class="login-white">Protect your privacy</h2>
+        <p>Remember to always log out by <a class="login-white underline" href="https://www.auckland.ac.nz/en/about/the-university/identity-and-access-management-help/about-single-sign-on.html">
+            completely exiting your browser</a> when you leave your computer.
+            This will protect your personal information from being accessed by subsequent users.
+            <a class="login-white underline" href="https://www.auckland.ac.nz/en/about-us/about-the-university/identity-and-access-management.html" target="_blank">More information</a>.</p>
+    </div>
+</div>
+
+<div class="row clear privacy-note register">
+    <div class="col-xs-12 col-md-12 sectionheading">
+        <h2>Protect your privacy</h2>
+        <p>Remember to always log out by <a href="https://www.auckland.ac.nz/en/about/the-university/identity-and-access-management-help/about-single-sign-on.html">
+            completely exiting your browser</a> when you leave your computer.
+            This will protect your personal information from being accessed by subsequent users.
+            <a href="https://www.auckland.ac.nz/en/about-us/about-the-university/identity-and-access-management.html" target="_blank">More information</a>.</p>
+    </div>
+</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+</div>
+
+
+<footer class="uoa-footer" role="contentinfo">
+    <div class="uoa-footer__container bg-dark-grey">
+        <div class="uoa-footer__social container">
+            <div class="offset-md-3 offset-xl-6 col-md-9 col-xl-6">
+                <div>
+                    <h3 id="Connectwithus"> Connect with us</h3>
+                    <ul class="footer__social-icon-list" aria-labelledby="Connectwithus">
+
+                        <li role="presentation">
+                            <a href="http://www.facebook.com/UniofAkl" title="Facebook">
+                                <svg role="img" pointer-events="none" aria-label="Facebook">
+                                    <title>Facebook</title>
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/images/sprite.svg?v=20220303#icn-facebook"></use>
+                                </svg>
+                            </a>
+                        </li>
+
+                        <li role="presentation">
+                            <a href="http://twitter.com/AucklandUni" title="Twitter">
+                                <svg role="img" pointer-events="none" aria-label="Twitter">
+                                    <title>Twitter</title>
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/images/sprite.svg?v=20220303#icn-twitter"></use>
+                                </svg>
+                            </a>
+                        </li>
+
+                        <li role="presentation">
+                            <a href="http://www.youtube.com/user/UNIofAUCKLAND" title="YouTube">
+                                <svg role="img" pointer-events="none" aria-label="YouTube">
+                                    <title>YouTube</title>
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/images/sprite.svg?v=20220303#icn-youtube"></use>
+                                </svg>
+                            </a>
+                        </li>
+
+                        <li role="presentation">
+                            <a href="https://www.linkedin.com/company/the-university-of-auckland" title="LinkedIn">
+                                <svg role="img" pointer-events="none" aria-label="LinkedIn">
+                                    <title>LinkedIn</title>
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/images/sprite.svg?v=20220303#icn-linkedin"></use>
+                                </svg>
+                            </a>
+                        </li>
+
+                        <li role="presentation">
+                            <a href="http://instagram.com/universityofauckland" title="Instagram">
+                                <svg role="img" pointer-events="none" aria-label="Instagram">
+                                    <title>Instagram</title>
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/images/sprite.svg?v=20220303#icn-instagram"></use>
+                                </svg>
+                            </a>
+                        </li>
+
+                        <li role="presentation">
+                            <a class="more-link" href="https://www.auckland.ac.nz/en/about/the-university/uoa-contact-us/connect-with-the-university-of-auckland.html" title="University of Auckland More Social..." aria-label="University of Auckland More Social...">
+                                <span>...</span><span>More</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="uoa-footer__container bg-dark-grey">
+        <div class="uoa-footer__legal container">
+            <ul class="sub">
+                <li role="presentation">
+                    <a href="https://www.auckland.ac.nz/en/admin/footer-links/sitemap.html">Site map</a>
+                </li>
+
+                <li role="presentation">
+                    <a href="https://www.auckland.ac.nz/en/admin/footer-links/accessibility.html">Accessibility</a>
+                </li>
+
+                <li role="presentation">
+                    <a href="https://www.auckland.ac.nz/en/admin/footer-links/copyright.html">Copyright</a>
+                </li>
+
+                <li role="presentation">
+                    <a href="https://www.auckland.ac.nz/en/admin/footer-links/privacy.html">Privacy</a>
+                </li>
+
+                <li role="presentation">
+                    <a href="https://www.auckland.ac.nz/en/admin/footer-links/disclaimer.html">Disclaimer</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</footer>
+
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        const webauthnButton = $('#use-webauthn')
+        if (!('credentials'  in navigator)){
+            // Hide device sign in button on really old/unsupported browsers
+            webauthnButton.hide();
+            return;
+        }
+        webauthnButton.click(function(e) {
+            e.preventDefault();
+            const username = $('#username')
+            if(!username.get(0).reportValidity()){
+                // Will complain using platform native controls if the user hasn't entered a username
+                return false;
+            }
+            $('#use-webauthn').html('Signing in...');
+            return Webauthn.authenticate(username.val());
+        })
+    })
+
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,14 @@
+My effort comes in a number of parts which must be loaded into R.
+The parts are:
+
+    layout-utilities.R
+    dotchart.R
+    data.R
+
+Once you've loaded the parts, you can run the examples in
+
+    examples.R
+
+This is just the germ of an idea and is not production code, but
+I think that with a little effort it could get cleaned up and
+used in practice.

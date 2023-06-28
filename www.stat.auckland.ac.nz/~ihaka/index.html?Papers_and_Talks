@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head><title>Ross Ihaka's   Home Page - Papers and Talks</title><meta name="keywords" content="CMSimple, Content Management System, php">
+<meta name="description" content="CMSimple is a simple content management system for smart maintainance of small commercial or private sites. It is simple - small - smart!">
+<meta http-equiv="content-type" content="text/html;charset=iso-8859-1"><meta name="generator" content="CMSimple 3.2"><link rel="stylesheet" href="./templates/subsilverlike/stylesheet.css" type="text/css"></head>
+  <body bgcolor="#E5E5E5" text="#000000" link="#006699" vlink="#5493B4">
+    <a id="TOP" name="TOP"></a>
+    <table class="bodyline" width="100%" style="height:100%;" cellspacing="0" cellpadding="10" border="0" align="center">
+      <tr>
+        <td valign="top" height="100%">
+          <table class="cmsline" align="center" width="700" style="height:100%;" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td valign="top" colspan="2">
+                <table align="center" width="100%" border="0" cellpadding="10" cellspacing="0" bgcolor="#006699" style="height:100px;background-image: url(./templates/subsilverlike/images/top.jpg);">
+                  <tr>
+                    <td valign="center" class="sitename" height="80">
+                      <font color="#FFFFFF">Ross Ihaka's   Home Page</font>
+                    </td>
+                    <td valign="center" align="right">
+                      <table align="center" width="100%" border="0" cellpadding="10" cellspacing="0">
+                        <tr>
+                          <td valign="center" align="right" class="searchbox"><form action="/~ihaka/" method="post"><div id="searchbox"><input type="text" class="text" name="search" size="12"><input type="hidden" name="function" value="search"> <input type="submit" class="submit" value="Search"></div></form></td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td class="innerline" valign="top" width="200" height="100%" bgcolor="#DEE3E7" rowspan="2">
+                <table align="center" width="100%" border="0" cellpadding="5" cellspacing="0">
+                  <tr>
+                    <td valign="top"><ul class="menulevel1"><li class="doc"><a href="/~ihaka/?Ross_Ihaka">Ross Ihaka</a></li><li class="doc"><a href="/~ihaka/?Math_Genealogy">Math Genealogy</a></li><li class="doc"><a href="/~ihaka/?Teaching">Teaching</a></li><li class="doc"><a href="/~ihaka/?Research">Research</a></li><li class="doc"><a href="/~ihaka/?Software">Software</a></li><li class="sdoc">Papers and Talks</li><li class="doc"><a href="/~ihaka/?Resources">Resources</a></li></ul></td>
+                  </tr>
+                  <tr>
+                    <td valign="top" class="menu"><a href="/~ihaka/?&amp;sitemap">Sitemap</a></td>
+                  </tr>
+                  <tr>
+                    <td valign="top" class="menu"><a href="/~ihaka/?Papers_and_Talks&amp;print">Print Version</a></td>
+                  </tr>
+                  <tr>
+                    <td valign="top" class="menu"></td>
+                  </tr>
+                  <tr>
+                    <td valign="top" class="menu"></td>
+                  </tr>
+                  <tr>
+                    <td valign="top" class="login"><a href="/~ihaka/?Papers_and_Talks&amp;login">Login</a></td>
+                  </tr>
+                  <tr>
+                    <td valign="top" class="menu">Last update:<br>January 12. 2018 10:58:15</td>
+                  </tr>
+<!-- YOU ARE ONLY ALLOWED TO HIDE, DELETE OR MODIFY THE LEGAL NOTICES FEATURE
+IF THE DOMAIN HAS BEEN REGISTERED WITH A COMMERCIAL LICENSE AT CMSIMPLE.COM
+OR YOU USE THE LINKWARE LICENCE: -->
+                  <tr>
+                    <td valign="top" class="menu"><a href="?CMSimple_Legal_Notices">CMSimple Legal Notices</a></td>
+                  </tr>
+<!-- The legallink() feature must be kept as a prominent menu item under AGPL -->
+                </table>
+              </td>
+              <td valign="top" width="500" bgcolor="white" height="100%">
+                <table align="center" width="100%" style="height:100%;" border="0" cellpadding="5" cellspacing="0">
+                  <tr>
+                    <td valign="top" class="locator" bgcolor="#E5E5E5" style="border: 2px #FFFFFF solid;"><a href="/~ihaka/?Ross_Ihaka">Ross Ihaka</a> &gt; Papers and Talks</td>
+                  </tr>
+                  <tr>
+                    <td valign="top" height="100%"><h1>Papers and Talks</h1><h4>Selected Papers:</h4><a href="/%7Eihaka/downloads/JSM-2010.pdf">R: Lessons Learned, Directions for the Future</a>.<br>In <em>JSM Proceedings</em> 2010, Statistical Computing Section.<br>Alexandria, VA: American Statistical Association.<br>(<a href="/%7Eihaka/downloads/JSM-Talk.pdf">Lecture Slides</a>)<br><br><a href="/%7Eihaka/downloads/Sweave-customisation.pdf">Customizing Sweave to Produce Better Looking LaTeX Output</a>.<br>Handout for Statistics 782 Course (2010 Version).<br>It's not published, but people keep asking for it.<br><br><a href="../%7Eihaka/downloads/Compstat-2008.pdf">Back to the Future: Lisp as a Base for a Statistical Computing System</a>.<br>With Duncan Temple Lang.<br>Invited Paper, <span style="font-style: italic;">Compstat 2008</span>.<br>August 25, 2008, Porto, Portugal.<br>(<a href="/%7Eihaka/downloads/Compstat-2008-Slides.pdf">Lecture Slides</a>)<br><br><a href="/%7Eihaka/downloads/DSC-Color.pdf">Colour for Presentation Graphics</a>.<br>Plenary Lecture, DSC 2003.<br>March 20, 2003, Vienna, Austria.<br>(<a href="/%7Eihaka/downloads/DSC-Color-Slides.pdf">Lecture Slides</a>)<br><br><a href="/%7Eihaka/downloads/lexical.pdf">Lexical Scope in Statistical Computing</a>.<br>With Robert Gentleman.<br><span style="font-style: italic;">Journal of Computational and Graphical Statistics</span>,<br><span style="font-weight: bold;">9</span>, pp. 491--508.<br><br><a href="/%7Eihaka/downloads/Interface98.pdf">R: Past and Future History</a>.<br><span style="font-style: italic;">Proceedings of the 30th Symposium on the Interface</span>.<br>S. Weisberg Ed., pp. 392-396.<br>The Interface Foundation of North America. 1998.<br><br><a href="/%7Eihaka/downloads/R-paper.pdf">R: A Language for Data Analysis and Graphics</a>.<br>With Robert Gentleman.<br><span style="font-style: italic;">Journal of Computational and Graphical Statistics</span>,<br><span style="font-weight: bold;">5</span>:3, pp. 299-314. 1996.<br><h4>Recent Talks:</h4><p><a href="/~ihaka/downloads/New-System.pdf">Towards a New Statistical Computing System</a>.</p><p>With Brendan McArdle.</p><p class="entry-title">Joint Australian Statistical Conference 2014/IMS Annual meeting</p><p class="entry-title">Sydney, July 10.<br></p><p class="entry-title"><br></p><p><a href="/~ihaka/downloads/Graphics.pdf">Graphical Perception as a Basis for Drawing Graphs</a>.<br>University of Queensland.<br>February 14, 2014.<br><br></p><p><a href="/~ihaka/downloads/Venables.pdf">Bill Venables, S and R</a>.<br>University of Queensland.<br>February 13, 2014.<br><br></p><a href="/~ihaka/downloads/Curves.pdf">Drawing Piecewise Smooth Curves</a> with <a href="/~ihaka/downloads/Curves-handouts.pdf">Handouts</a>.<br>NZSA Meeting, Waikato University.<br>November 25, 2013.<br><br><a href="/%7Eihaka/downloads/Food-Processing.pdf">How a Computational Specialist Contributes to the Deployment of<br>Statistical Methodology</a> with <a href="/%7Eihaka/downloads/Food-Processing-handouts.pdf">Handouts</a>.<br>Symposium on the Use of Statistics in Food Processing, Napier.<br>November 24-25, 2011.<br>
+	
+	
+	
+	<style type="text/css">p { margin-top: 0.11cm; margin-bottom: 0cm; }p.western { font-family: "Trebuchet MS",serif; font-size: 10pt; }p.cjk { font-size: 10pt; }p.ctl { font-family: "Arial",sans-serif; font-size: 10pt; }</style>
+<span style="font-weight: bold;"><br></span> <a href="/%7Eihaka/downloads/Waikato-WRUG.pdf">R Functions: Things Your Mother (Probably) Didn't Tell You</a> with <a href="/%7Eihaka/downloads/Waikato-WRUG-handouts.pdf">Handouts</a>.<br>Waikato R User's Group, Waikato University.<br>October 16, 2011<br><br><a href="/%7Eihaka/downloads/Otago.pdf">The R Project: A Brief History and Thoughts About the Future</a>.<br>
+University of Otago.<br>
+April 20, 2011.<br>
+<br><a href="/%7Eihaka/downloads/JSM-Talk.pdf">Lessons Learned: Directions for the Future. </a><br>ASA Statistical Computing and Graphics Award. <br>Joint Statistical Meetings. <br>August 4, 2010, Vancouver. <br><br><a href="/%7Eihaka/downloads/Taupo.pdf">Writing Efficient Programs in R (and Beyond)</a> with <a href="/%7Eihaka/downloads/Taupo-handouts.pdf">handouts</a>.<br>Invited Talk, IBS Australasian Region Conference.<br>November 30, 2009, Taupo.<br><br><a href="/%7Eihaka/downloads/Massey.pdf">The R Project: A Brief History and Thoughts About the Future</a><br>with <a href="/%7Eihaka/downloads/Massey-handouts.pdf">handouts</a>.<br>Massey University Statistics Day.<br>October 23, 2009, Massey University, Palmerston North.<br><br><a href="/%7Eihaka/downloads/the-r-project.pdf">The R Project</a> with <a href="/%7Eihaka/downloads/the-r-project-handouts.pdf">handouts</a>.<br>Auckland Analytics Forum<br>June 10, 2009, Deloittes, Auckland.<br><br><a href="/%7Eihaka/downloads/Waikato.pdf">R: Past and Future History</a> with <a href="/%7Eihaka/downloads/Waikato-handouts.pdf">handouts</a>.<br>Kingitanga Day, University of Waikato.<br>April 21, 2009, Hamilton.<br><br><a href="/%7Eihaka/?download=NZQA-2009.pdf">R: Past and Future History</a> with <a href="/%7Eihaka/download=NZQA-2009-handouts.pdf">handouts</a>.<br>New Zealand Qualifications Authority.<br>April 3, 2009, Wellington.<br><br><a href="/%7Eihaka/?download=NZSA-2009.pdf">R: Past and Future History</a> with <a href="/%7Eihaka/?download=NZSA-2009-handouts.pdf">handouts</a>.<br>Wellington Statistics Group.<br>April 2, 2009, Wellington.<br><br><a href="/%7Eihaka/downloads/Singapore-2008.pdf">Developing a "Next Generation Statistical Computing Environment"</a>.<br>Ross Ihaka and Duncan Temple Lang.<br>Invited talk, 7th World Congress in Probability and Statistics<br>July 14, 2008, Singapore.<br><h4></h4>
+                      <p>
+                         
+                      </p>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td valign="bottom">
+                <table class="innerline" bgcolor="#5493B4" width="100%" border="0" cellpadding="5" cellspacing="0">
+                  <tr>
+                    <td width="33%" class="navigator" valign="top"><a href="/~ihaka/?Software"><</a></td>
+                    <td align="center" width="33%" class="navigator" valign="top"><a href="#TOP">TOP</a></td>
+                    <td align="right" width="33%" class="navigator" valign="top"><a href="/~ihaka/?Resources">></a></td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td>
+<!-- YOU ARE ONLY ALLOWED TO HIDE OR DELETE THE "POWERED BY CMSIMPLE" LINK TO CMSIMPLE.ORG
+IF THE DOMAIN HAS BEEN REGISTERED WITH A COMMERCIAL LICENSE AT CMSIMPLE.COM
+OR YOU KEEP THE LEGAL NOTICES FEATURE: -->
+          <div style="height:20px;" align="center" class="copyright">
+            <a href="http://www.cmsimple.org/" class="copyright">Powered by CMSimple</a>
+          </div>
+<!-- IF REMOVE OR HIDE: You must keep the Legal Notices Feature or a commercial licence must be purchased - see http://www.cmsimple.com -->
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

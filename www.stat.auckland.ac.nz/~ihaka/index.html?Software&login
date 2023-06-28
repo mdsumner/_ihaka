@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head><title>Ross Ihaka's   Home Page - Login</title><meta name="keywords" content="CMSimple, Content Management System, php">
+<meta name="description" content="CMSimple is a simple content management system for smart maintainance of small commercial or private sites. It is simple - small - smart!">
+<meta name="robots" content="noindex">
+<meta http-equiv="content-type" content="text/html;charset=iso-8859-1"><meta name="generator" content="CMSimple 3.2"><link rel="stylesheet" href="./templates/subsilverlike/stylesheet.css" type="text/css"></head>
+  <body bgcolor="#E5E5E5" text="#000000" link="#006699" vlink="#5493B4" onLoad="self.focus();document.login.passwd.focus()">
+    <a id="TOP" name="TOP"></a>
+    <table class="bodyline" width="100%" style="height:100%;" cellspacing="0" cellpadding="10" border="0" align="center">
+      <tr>
+        <td valign="top" height="100%">
+          <table class="cmsline" align="center" width="700" style="height:100%;" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td valign="top" colspan="2">
+                <table align="center" width="100%" border="0" cellpadding="10" cellspacing="0" bgcolor="#006699" style="height:100px;background-image: url(./templates/subsilverlike/images/top.jpg);">
+                  <tr>
+                    <td valign="center" class="sitename" height="80">
+                      <font color="#FFFFFF">Ross Ihaka's   Home Page</font>
+                    </td>
+                    <td valign="center" align="right">
+                      <table align="center" width="100%" border="0" cellpadding="10" cellspacing="0">
+                        <tr>
+                          <td valign="center" align="right" class="searchbox"><form action="/~ihaka/" method="post"><div id="searchbox"><input type="text" class="text" name="search" size="12"><input type="hidden" name="function" value="search"> <input type="submit" class="submit" value="Search"></div></form></td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td class="innerline" valign="top" width="200" height="100%" bgcolor="#DEE3E7" rowspan="2">
+                <table align="center" width="100%" border="0" cellpadding="5" cellspacing="0">
+                  <tr>
+                    <td valign="top"><ul class="menulevel1"><li class="doc"><a href="/~ihaka/?Ross_Ihaka">Ross Ihaka</a></li><li class="doc"><a href="/~ihaka/?Math_Genealogy">Math Genealogy</a></li><li class="doc"><a href="/~ihaka/?Teaching">Teaching</a></li><li class="doc"><a href="/~ihaka/?Research">Research</a></li><li class="doc"><a href="/~ihaka/?Software">Software</a></li><li class="doc"><a href="/~ihaka/?Papers_and_Talks">Papers and Talks</a></li><li class="doc"><a href="/~ihaka/?Resources">Resources</a></li></ul></td>
+                  </tr>
+                  <tr>
+                    <td valign="top" class="menu"><a href="/~ihaka/?&amp;sitemap">Sitemap</a></td>
+                  </tr>
+                  <tr>
+                    <td valign="top" class="menu"><a href="/~ihaka/?&amp;print&amp;Login">Print Version</a></td>
+                  </tr>
+                  <tr>
+                    <td valign="top" class="menu"></td>
+                  </tr>
+                  <tr>
+                    <td valign="top" class="menu"></td>
+                  </tr>
+                  <tr>
+                    <td valign="top" class="login"><a href="/~ihaka/?&amp;login">Login</a></td>
+                  </tr>
+                  <tr>
+                    <td valign="top" class="menu">Last update:<br>January 12. 2018 10:58:15</td>
+                  </tr>
+<!-- YOU ARE ONLY ALLOWED TO HIDE, DELETE OR MODIFY THE LEGAL NOTICES FEATURE
+IF THE DOMAIN HAS BEEN REGISTERED WITH A COMMERCIAL LICENSE AT CMSIMPLE.COM
+OR YOU USE THE LINKWARE LICENCE: -->
+                  <tr>
+                    <td valign="top" class="menu"><a href="?CMSimple_Legal_Notices">CMSimple Legal Notices</a></td>
+                  </tr>
+<!-- The legallink() feature must be kept as a prominent menu item under AGPL -->
+                </table>
+              </td>
+              <td valign="top" width="500" bgcolor="white" height="100%">
+                <table align="center" width="100%" style="height:100%;" border="0" cellpadding="5" cellspacing="0">
+                  <tr>
+                    <td valign="top" class="locator" bgcolor="#E5E5E5" style="border: 2px #FFFFFF solid;">Login</td>
+                  </tr>
+                  <tr>
+                    <td valign="top" height="100%"><h1>Login</h1><p><b>This system is for the use of authorized users only.</b></p><form id="login" name="login" action="/~ihaka/" method="post"><div id="login"><input type="hidden" name="login" value="true"><input type="hidden" name="selected" value="Software"><input type="password" name="passwd" id="passwd" value=""> <input type="submit" name="submit" id="submit" value="Login"></div></form>                      <p>
+                         
+                      </p>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td valign="bottom">
+                <table class="innerline" bgcolor="#5493B4" width="100%" border="0" cellpadding="5" cellspacing="0">
+                  <tr>
+                    <td width="33%" class="navigator" valign="top"></td>
+                    <td align="center" width="33%" class="navigator" valign="top"><a href="#TOP">TOP</a></td>
+                    <td align="right" width="33%" class="navigator" valign="top"><a href="/~ihaka/?Ross_Ihaka">></a></td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td>
+<!-- YOU ARE ONLY ALLOWED TO HIDE OR DELETE THE "POWERED BY CMSIMPLE" LINK TO CMSIMPLE.ORG
+IF THE DOMAIN HAS BEEN REGISTERED WITH A COMMERCIAL LICENSE AT CMSIMPLE.COM
+OR YOU KEEP THE LEGAL NOTICES FEATURE: -->
+          <div style="height:20px;" align="center" class="copyright">
+            <a href="http://www.cmsimple.org/" class="copyright">Powered by CMSimple</a>
+          </div>
+<!-- IF REMOVE OR HIDE: You must keep the Legal Notices Feature or a commercial licence must be purchased - see http://www.cmsimple.com -->
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

@@ -1,0 +1,228 @@
+p {
+  margin-left: 0em;
+}
+
+body {
+  color: black;
+  font-family: sans-serif;
+  /* background: url("http://www.stat.auckland.ac.nz/~ihaka/twcbg.gif"); */
+  /* background-color: #f0f0f0; */
+  margin-top: -4em;
+  margin-left: 15%;
+  margin-right: 15%;
+}
+
+h1 {
+  font-size: 150%;
+}
+
+h2 {
+  font-size: 150%;
+}
+
+h1,h2,h3,h4,h5,h6 {
+  /* color: rgb(0, 0, 0); */
+  color: rgb(0, 90, 0);
+  font-weight: bold;
+  margin-top: 0.5em;
+  margin-left: -0.75em;
+  margin-bottom: 0em;
+}
+
+p {
+  margin-top: .25em;
+  margin-bottom: .25em;
+}
+
+.title {
+  font-size: 160%;
+  font-weight: normal;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.partheading {
+  font-size: 100%;
+}
+
+.chapterheading {
+  font-size: 100%;
+}
+
+.beginsection {
+  font-size: 100%;
+}
+
+.tiny {
+  font-size: 40%;
+}
+
+.scriptsize {
+  font-size: 60%;
+}
+
+.footnotesize {
+  font-size: 75%;
+}
+
+.small {
+  font-size: 90%;
+}
+
+.normalsize {
+  font-size: 100%;
+}
+
+.large {
+  font-size: 120%;
+}
+
+.largecap {
+  font-size: 150%;
+}
+
+.largeup {
+  font-size: 200%;
+}
+
+.huge {
+  font-size: 300%;
+}
+
+.hugecap {
+  font-size: 350%;
+}
+
+pre {
+  margin-left: 2em;
+}
+
+blockquote {
+  margin-left: 2em;
+}
+
+ol {
+  list-style-type: decimal;
+}
+
+ol ol {
+  list-style-type: lower-alpha;
+}
+
+ol ol ol {
+  list-style-type: lower-roman;
+}
+
+ol ol ol ol {
+  list-style-type: upper-alpha;
+}
+
+.verbatim {
+  /* color: rgb(0, 60, 0); */
+  font-size: 90%;
+}
+
+b {
+  font-size: 90%;
+}
+
+tt {
+  /* color: rgb(0, 60, 0); */
+  font-size: 100%;
+}
+
+tt i {
+  font-family: serif;
+}
+
+.verbatim em {
+  font-family: serif;
+  color: rgb(0, 100, 0);
+}
+
+.scheme em {
+  font-family: serif;
+  color: black;
+}
+
+.scheme {
+  color: brown;
+}
+
+.scheme .keyword {
+  color: #990000;
+  font-weight: bold;
+}
+
+.scheme .builtin {
+  color: #990000;
+}
+
+.scheme .variable {
+  color: navy;
+}
+
+.scheme .global {
+  color: purple;
+}
+
+.scheme .selfeval {
+  color: green;
+}
+
+.scheme .comment {
+  color:  teal;
+}
+
+.schemeresponse {
+  color: green;
+}
+
+.navigation {
+  color: rgb(0, 120, 0);
+  text-align: right;
+  font-size: small;
+  font-style: italic;
+}
+
+.disable {
+  color: gray;
+}
+
+.smallcaps {
+  font-size: 75%;
+}
+
+.smallprint {
+  color: gray;
+  font-size: 75%;
+  text-align: right;
+}
+
+/*
+.smallprint hr {
+  text-align: left;
+  width: 40%;
+}
+*/
+
+.footnoterule {
+  text-align: left;
+  width: 40%;
+}
+
+.colophon {
+  color: gray;
+  font-size: 80%;
+  text-align: right;
+  margin-top: 2em;
+}
+
+.colophon a {
+  color: gray;
+}
+
+:link { color: rgb(0, 0, 153) }  /* for unvisited links */
+:visited { color: rgb(0, 0, 153) } /* for visited links */
+/* :active { color: rgb(255, 0, 102) } /* when link is clicked */
+/* :hover { color: rgb(0, 96, 255) } /* when mouse is over link  */

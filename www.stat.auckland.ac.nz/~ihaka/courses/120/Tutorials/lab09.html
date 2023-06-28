@@ -1,0 +1,257 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>Three-D Visualisation and Animation</title>
+    <link rel=StyleSheet href="style.css" type="text/css" media="screen">
+  </head>
+  <body>
+
+    <h1 align="center" >Three-D Visualisation and Animation</h1><br>
+
+    <h2>The OpenGL Library</h2>
+    
+    <p>
+      In this lab we'll look at some fancier visualisation techniques.
+      In particular we'll take a peek at the use of the Silicon
+      Graphics <b>OpenGL</b> graphics library.  OpenGL is standard set
+      of graphics utilities which is used in all kinds of
+      applications, from scientific visualisation to gaming.
+    </p>
+    <p>
+      In R, the interface to this is through the <b>rgl</b> library.
+      You can gain access to rgl with the command
+    </p>
+    <pre>
+library(rgl)
+    </pre>
+    <p>
+      You only need to do this once.
+    </p>
+    <p>
+      There is a slight bug in the version of rgl installed in the lab and
+      you should "patch" it by pasting the following lines into R.
+    </p>
+    <pre>
+rgl.quads =
+function (x, y, z, ...)
+{
+    rgl.primitive("quadrangles", x, y, z, ...)
+}
+    </pre>
+    <p>
+      Once you've done this you are ready to go.
+    </p>
+
+    <h2>A First Example</h2>
+    
+    <p>
+      As first example. let's construct a simple 3-d plot.  We'll do
+      this with the cherry tree data, which gives the volume of timber
+      milled from a tree as a function of its height and girth
+      (thickness).
+    </p>
+    <p>
+      The first thing we need to do is to load up the data.  It is built
+      in to R and we can load it with the command
+    </p>
+    <pre>
+data(trees)
+    </pre>
+    <p>
+      To get a quick 2-d look at data, produce a scatterplot matrix.
+    </p>
+    <pre>
+pairs(trees)
+    </pre>
+    <p>
+      Now let's produce the 3-d plot.  The first step is to scale the
+      data so that the units on the x, y, and z axes are comparable.
+      You can do this with the command
+    </p>
+    <pre>
+trees = scale(trees)
+    </pre>
+    <p>
+      Now we set up some basic lighting to help us see whats going on.
+      We'll place the light 45 degrees to our right (theta) and at an
+      elevation of 45 degrees (phi).  We'll also hold the light fixed
+      as the points are moved.
+    </p>
+    <pre>
+rgl.clear()
+rgl.clear("lights")
+rgl.light(theta = 45, phi = 45, viewpoint.rel=TRUE)
+    </pre>
+    <p>
+      These commands should open a small (emplty) graphics window.
+      You should be able to resize the window by dragging its lower
+      right corner.
+    </p>
+    <p>
+      Now we'll draw small yellow spheres (radius .1) at the locations
+      of the data points.  The specular and ambient parameters
+      describe how the spheres reflect light.
+    </p>
+    <pre>
+rgl.spheres(trees[,1], trees[,3], trees[,2], r = .1,
+            specular = "#FFFFFF",
+            ambient = "#222222",
+            color="yellow")
+    </pre>
+    <p>
+      You should now see a set of yellow spheres in the graphics window.
+    </p>
+    <p>
+      You should now be able to rotate the points in 3-d by dragging
+      on them with the left mouse button pressed.  You will also be
+      able to zoom in and out by dragging vertically with the right
+      mouse button pressed.  Dragging with the middle mouse button
+      pressed will let you vary the amount of perspective usind in the
+      plot.
+    </p>
+    <p>
+      To make it easier to orient yourself in the plot we'll add a
+      base area to the plot and drop vertical lines from each of the
+      points to the base.  You can do this as follows.
+    </p>
+    <pre>
+xlims = range(trees[,1])
+ylims = range(trees[,2])
+zlims = range(trees[,3])
+
+bot = min(zlims[1]) - diff(zlims)/20
+
+rgl.quads(xlims[c(1,2,2,1)],
+          rep(bot, 4),
+          ylims[c(1,1,2,2)],
+          col = "gray")
+
+for(i in 1:nrow(trees)) {
+  rgl.lines(rep(trees[i,1],2),
+            c(trees[i,3], bot),
+            rep(trees[i,2], 2),
+            color = "white")
+}
+    </pre>
+    <p>
+      Finally, we'll spin the points by programmatically varying the
+      viewpoint.  You can do this as follows.
+    </p>
+    <pre>
+for(i in seq(0, 3 * 360, by = 1)) {
+  rgl.viewpoint(theta = i, phi = 0)
+}
+    </pre>
+    <p>
+      This rotation should give you some insight into the structure of
+      the points in 3-d.  (Try varying the stepsize - e.g. use by=1 -
+      and changing the number of revolutions from 3 to some larger or
+      smaller value).
+    </p>
+
+    <h2>Simple Surface Visualisation</h2>
+    <p>
+      As a second example of visualisation, we look at a simple
+      mathematical function -- in this case f(x,y) = x^2 - y^2.
+    </p>
+    <p>
+      We can define the function and generate its values over an x/y
+      grid as follows.
+    </p>
+    <pre>
+f = function(x, y)
+{
+  (x^2 - y^2)/6
+}
+                                                                             
+x = seq(-3, 3,length = 21)
+y = x
+z = outer(x, y, f)
+    </pre>
+    <p>
+      To view the surface we again set up the lighting and then use
+      the rgl.surface function to display it.  In this case we'll draw
+      a smooth version of the surface and superimpose the grid on it.
+    </p>
+    <pre>
+rgl.clear()
+rgl.clear("lights")
+rgl.light(theta = 0, phi = 90)
+
+rgl.surface(y, x, z, color="seagreen", smooth=TRUE,
+            specular = "#444444",
+            ambient="#555555",
+            front = "fill",
+            back = "fill")
+
+rgl.surface(y, x, z + 0.01, color="black", smooth=TRUE,
+            specular = "#000000",
+            ambient="#555555",
+            front = "line")
+    </pre>
+    <p>
+      Again, rotation should you get a better feel for the shape of
+      the surface.
+    </p>
+
+    <h2>Visualising Terrain</h2>
+    <p>
+      As a final example, lets look at a digital elevation model of
+      Norfolk Island.  This model was built as part of a Master's
+      student project to study rainfall on the island.
+    </p>
+    <p>
+      You can load up the data for the model as follows
+    </p>
+    <pre>
+source("http://www.stat.auckland.ac.nz/~ihaka/120/Data/ni-smoothed.R")
+heights = smoothed
+    </pre>
+    <p>
+      This reads in the island heights over a grid of x/y locations.
+      Now we'll plot them as a surface, this time using "realistic"
+      terrain colours.  First we set up the lighting
+    </p>
+    <pre>
+rgl.clear()
+rgl.clear("lights")
+rgl.light(theta=0,phi=45)
+    </pre>
+    <p>
+      Next we set the colours for each "facet" of the grid and
+      finally plot the surface.
+    </p>
+    <pre>
+ncolors = 100
+colorlut = terrain.colors(ncolors)
+colorlut[1] = "steelblue"
+xg = seq(xlim[1],xlim[2],length=n)
+yg = seq(ylim[1],ylim[2],length=n)
+ymax = max(heights)
+ymin = min(heights)
+col = colorlut[1 + (ncolors - 1) * (heights - ymin)/(ymax - ymin)]
+
+rgl.surface(yg, xg, heights, color=col, smooth=TRUE, specular="#000000")
+    </pre>
+    <p>
+      There is also a data set called ni-unsmoothed.R which defines a
+      variable called unsmoothed.  This data set contains the heights
+      of the island as read off a contour map.  The smoothed data was
+      produced by applying a (stochastic) smoothing technique to the
+      unsmoothed heights.
+    </p>
+
+    <h2>What You Hand In</h2>
+    <p>
+      This lab is just intended to show you that advanced visualision
+      techniques are really not very scary or hard.  Hopefully, in the
+      next couple of years we'll be able to provide free and easy
+      access to these (and more) techniques in R.
+    </p>
+    <p>
+      Just hand in a short description of what you did and saw.
+    </p>
+
+
+  </body>
+</html>

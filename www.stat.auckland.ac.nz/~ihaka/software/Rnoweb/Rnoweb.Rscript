@@ -1,0 +1,5 @@
+#!/usr/bin/env Rscript
+
+library(Rnoweb)
+for(arg in commandArgs(TRUE))
+  noweb(arg)
